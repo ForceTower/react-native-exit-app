@@ -34,6 +34,11 @@ public class RNExitAppModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void exitApp() {
-        android.os.Process.killProcess(android.os.Process.myPid());
+        try {
+            RetrievesActivity retriever = (RetrievesActivity) reactContext.getApplicationContext();
+            retriever.getCurrentActivity().finish();
+        } catch (Throwable error) {
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 }
